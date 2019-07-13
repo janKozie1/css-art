@@ -10,6 +10,7 @@ const Header = () => {
     let [visibleLetters, setVisibleLetters] = useState(randomTexts[wordCounter].length)
     let [isChanging, setIsChanging] = useState(false)
     let [bounce, setBounce] = useState(false)
+    let [started, setStart] = useState(false)
     useInterval(() => {
         setIsChanging(true)
     }, randomTexts[wordCounter].length * 200 + 3000)
@@ -33,8 +34,12 @@ const Header = () => {
     return (
         <S.Header>
             <S.H1 >
-                CSS is <S.Spacer></S.Spacer><S.Span isChanging={isChanging}>{randomText}</S.Span> .
+                Front end is <S.Spacer></S.Spacer><S.NoBreak><S.Span isChanging={isChanging}>{randomText}</S.Span> .</S.NoBreak>
             </S.H1>
+            <S.TextContainer  onClick={()=>setStart(true)}>
+                <S.H2 started={started}>Explore</S.H2>
+            </S.TextContainer>
+            
         </S.Header>
     );
 }
