@@ -1,4 +1,4 @@
-import styled, { keyframes, css} from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { colors } from '../cssVariables'
 
 let blink = keyframes`
@@ -31,7 +31,7 @@ let bounce = keyframes`
     0%,100%{
         transform:translateY(0);
     }
-    50%{
+    30%{
         transform:translateY(12px);
     }
 `
@@ -46,9 +46,7 @@ export let Header = styled.header`
     justify-content:center;
     flex-direction:column;
     background:linear-gradient(to bottom left,${colors.primary}, ${colors.dark} );
-    h2{
-        
-    }
+    overflow:hidden;
     /* &:after, &:before{
         width:100%;
         position:absolute;
@@ -72,8 +70,6 @@ export let Header = styled.header`
     z-index:-1; */
 `
 
-
-
 export let H1 = styled.h1`
     @media screen and (max-width:700px) {
         max-width:70%;
@@ -85,8 +81,8 @@ export let H1 = styled.h1`
     position:relative;
     border:5px  solid ${colors.bright};
     padding:10px 20px;
-    
 `
+
 
 export let Spacer = styled.br`
     display:none;
@@ -127,11 +123,7 @@ export let TextContainer = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
-    &:active{
-        >h2{
-            transform:translateY(15px)
-        }
-    }
+    
     &:hover{
         >h2{
             color:rgba(255,255,255,0.7);
@@ -162,9 +154,48 @@ export let H2 = styled.h2`
     cursor:pointer;
     color:rgba(255,255,255,0.25);
     position:relative;
+    ${props => props.started && css`
+        animation:${bounce} 1s;
+    `};
    
 `
 
+export let SlideContainer = styled.div`
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    display:none;
+    ${props => props.started && css`
+        display:block;
+    `}
+`
 
+export let Slide = styled.div`
+    height:10.5%;
+    width:100%;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:white;
+    transition:top 1s ease-out;
+    ${props => props.started && css`
+        display:block;
+        ${createCSS()}
+        
+    `}
+`
 
-
+function createCSS() {
+    let styles = '';
+    for (let i = 0; i < 10; i++) {
+        styles += `
+         &:nth-child(${i + 3}) {
+           transition-delay:${i ? i-0.8*i : 0}s;
+           top:${i*10}%;
+         }
+       `
+    }
+    return css`${styles}`;
+}

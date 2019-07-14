@@ -33,13 +33,23 @@ const Header = () => {
     }, isChanging ? 150 : null)
     return (
         <S.Header>
+
             <S.H1 >
                 Front end is <S.Spacer></S.Spacer><S.NoBreak><S.Span isChanging={isChanging}>{randomText}</S.Span> .</S.NoBreak>
             </S.H1>
-            <S.TextContainer  onClick={()=>setStart(true)}>
+
+
+            <S.TextContainer onClick={() => setStart(true)}>
                 <S.H2 started={started}>Explore</S.H2>
             </S.TextContainer>
+
+            {
+                new Array(10).fill("").map((e, index) => {
+                    return <S.Slide started={started}/>
+                })
+            }
             
+
         </S.Header>
     );
 }
