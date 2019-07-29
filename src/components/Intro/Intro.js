@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useInterval } from '../../logic/hooks'
+import Header from './Header/Header'
 
-import * as S from './styledComponents'
 
-const Header = () => {
+const Intro = () => {
     let randomTexts = ['Art', 'Style', 'Beauty', 'Design', 'Grace', 'Power', 'Creation']
     let [wordCounter, setWordCounter] = useState(0)
     let [randomText, setRandomText] = useState(randomTexts[wordCounter])
@@ -32,26 +32,27 @@ const Header = () => {
         }
     }, isChanging ? 150 : null)
     return (
-        <S.Header>
+        <>
+            <Header
+                alternate={false}
+                isChanging={isChanging}
+                randomText={randomText}
+                setStart={setStart}
+                started={started}
+            />
 
-            <S.H1 >
-                Front end is <S.Spacer></S.Spacer><S.NoBreak><S.Span isChanging={isChanging}>{randomText}</S.Span> .</S.NoBreak>
-            </S.H1>
+            <Header
+                alternate={true}
+                isChanging={isChanging}
+                randomText={randomText}
+                setStart={setStart}
+                started={started}
+            />
 
 
-            <S.TextContainer onClick={() => setStart(true)}>
-                <S.H2 started={started}>Explore</S.H2>
-            </S.TextContainer>
+        </>
 
-            {
-                new Array(10).fill("").map((e, index) => {
-                    return <S.Slide started={started}/>
-                })
-            }
-            
-
-        </S.Header>
     );
 }
 
-export default Header;
+export default Intro;

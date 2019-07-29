@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
-import { colors } from '../cssVariables'
+import { colors } from '../../cssVariables'
 
 let blink = keyframes`
     0%{
@@ -35,8 +35,6 @@ let bounce = keyframes`
         transform:translateY(12px);
     }
 `
-
-let rotation = 4
 export let Header = styled.header`
     width:100%;
     min-height:100%;
@@ -45,29 +43,25 @@ export let Header = styled.header`
     align-items:center;
     justify-content:center;
     flex-direction:column;
+    z-index:1;
     background:linear-gradient(to bottom left,${colors.primary}, ${colors.dark} );
     overflow:hidden;
-    /* &:after, &:before{
-        width:100%;
+    color:white;
+    transition:clip-path 2s ease;
+    ${props => props.alternate && css`
+        z-index:2;
         position:absolute;
-        
-        top:98%;
-        height:70px;
-        background:grey;
-        content:'';
-        transform-origin:center center;
-        background:white;
-        z-index:10;
-    }
-    &:after{
-        left:-10px;
-        transform:rotate(${rotation}deg);
-    }
-    &:before{
-        right:-10px;
-        transform:rotate(-${rotation}deg);
-    }
-    z-index:-1; */
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+        background:${colors.bright};
+        clip-path:circle(0);
+        ${props => props.started && css`
+            clip-path:circle(100%);
+            color:black;
+        `}
+    `}
 `
 
 export let H1 = styled.h1`
@@ -77,10 +71,13 @@ export let H1 = styled.h1`
     }
     transition:all 1s ease;
     font-size:4rem;
-    color:white;
     position:relative;
-    border:5px  solid ${colors.bright};
+    border:5px solid white;
     padding:10px 20px;
+    z-index:10;
+    ${props => props.alternate && css`
+        border-color:black;
+    `}
 `
 
 
@@ -99,7 +96,10 @@ export let Span = styled.span`
     height:max-content;
     &::after{
         content:'';
-        background:${colors.bright};
+        background:white;
+        ${props => props.alternate && css`
+            background:black;
+        `}
         width:6px;
         height:70%;
         position:absolute;
@@ -122,8 +122,7 @@ export let TextContainer = styled.div`
     position:relative;
     display:flex;
     align-items:center;
-    justify-content:center;
-    
+    justify-content:center; 
     &:hover{
         >h2{
             color:rgba(255,255,255,0.7);
@@ -148,54 +147,13 @@ export let TextContainer = styled.div`
 `
 
 
-
 export let H2 = styled.h2`
     transition:all 0.5s ease;
     cursor:pointer;
-    color:rgba(255,255,255,0.25);
+    color:rgba(255,255,255,0.2);
     position:relative;
     ${props => props.started && css`
         animation:${bounce} 1s;
     `};
    
 `
-
-export let SlideContainer = styled.div`
-    width:100%;
-    height:100%;
-    position:absolute;
-    left:0;
-    top:0;
-    display:none;
-    ${props => props.started && css`
-        display:block;
-    `}
-`
-
-export let Slide = styled.div`
-    height:10.5%;
-    width:100%;
-    position:absolute;
-    top:100%;
-    left:0;
-    background:white;
-    transition:top 1s ease-out;
-    ${props => props.started && css`
-        display:block;
-        ${createCSS()}
-        
-    `}
-`
-
-function createCSS() {
-    let styles = '';
-    for (let i = 0; i < 10; i++) {
-        styles += `
-         &:nth-child(${i + 3}) {
-           transition-delay:${i ? i-0.8*i : 0}s;
-           top:${i*10}%;
-         }
-       `
-    }
-    return css`${styles}`;
-}

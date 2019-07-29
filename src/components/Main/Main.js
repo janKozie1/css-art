@@ -5,7 +5,6 @@ import * as S from './styledComponents'
 const Main = () => {
     return ( 
         <S.Main>
-          
             <S.SectionContainer>
                 <S.Section>
                     <h4>Personal Projects</h4>

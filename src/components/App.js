@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import {GlobalStyle} from './global_styledComponents'
 
-import Header from './Header/Header'
+import Intro from './Intro/Intro'
 
 class App extends Component {
     state = {  }
@@ -10,7 +10,7 @@ class App extends Component {
         return ( 
             <>
                 <GlobalStyle />
-                <Header />
+                <Intro />
                
             </> 
         );
